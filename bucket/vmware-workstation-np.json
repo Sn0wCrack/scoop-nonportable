@@ -1,0 +1,33 @@
+{
+    "version": "17.6.0-24238078",
+    "homepage": "https://www.vmware.com/products/desktop-hypervisor/workstation-and-fusion",
+    "description": "An application for creating and running virtual machines on your computer.",
+    "license": {
+        "identifier": "Freeware",
+        "url": "https://www.vmware.com/ca/help/legal.html"
+    },
+    "architecture": {
+        "64bit": {
+            "url": "https://softwareupdate.vmware.com/cds/vmw-desktop/ws/17.6.0/24238078/windows/core/VMware-workstation-17.6.0-24238078.exe.tar",
+            "hash": "8866101cd4d411dc4f75ecba2458b95ad5ca4edd177e2a500a9d3662ea37fc50"
+        }
+    },
+    "pre_install": [
+        "if (!(is_admin)) {",
+        "    error \"Administrator rights are required to install $app.\"",
+        "    break",
+        "}"
+    ],
+    "checkver": {
+        "url": "https://softwareupdate.vmware.com/cds/vmw-desktop/ws-windows.xml",
+        "regex": "ws/(?<Ver>[\\d.]+)/(?<Patch>\\d+)",
+        "replace": "${Ver}-${Patch}"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://softwareupdate.vmware.com/cds/vmw-desktop/ws/$matchVer/$matchPatch/windows/core/VMware-workstation-$matchVer-$matchPatch.exe.tar"
+            }
+        }
+    }
+}
